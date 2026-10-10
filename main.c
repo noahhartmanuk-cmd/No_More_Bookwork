@@ -25,7 +25,7 @@ int main(void) {
     printf("Yo,welcome to No_More_Bookwork, the only way to completely slow down bookwork checks in Sparx\n");
 
     char cmd[100];
-    int found = 1;
+    int found = 0;
 
     while(running) { 
         printf("Enter Cmd ('h' for help): ");
@@ -36,8 +36,8 @@ int main(void) {
                 found = 1;
                 break;
             }
-            if(!found) {printf("Unknown Command! %s\n", cmd);};
         }
+        if(!found) {printf("Unknown Command! %s\n", cmd);};
     }
     return 0;
 }
