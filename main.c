@@ -24,5 +24,5 @@ int main(void) {
 }
 
 void help(void) {
-    printf("Hi\n");
+    printf("Hi, This is where I will put the most usefull commands\n");
 }
