@@ -1,21 +1,27 @@
 #include <stdio.h>
 #include <string.h>
 
-void help();
+void help(void);
+
+void hello(void);
 
 int main(void) {
-    char cmd_list[10][10] = {
-        {"h"},
+    struct Command {
+        const char *name; 
+        void (*fnptr)(void);
+    }; 
+    struct Command commands[] = {
+        {"h", help},
+        {"hello", hello}
     };
-    void (*cmd_func_list[10])(void) = {&help,};
     printf("Yo,welcome to No_More_Bookwork, the only way to completely slow down bookwork checks in Sparx\n");
     char cmd[100];
     while(1) { 
-        printf("Enter Cmd ('h' for help):");
+        printf("Enter Cmd ('h' for help): ");
         scanf("%s", cmd);
-        for(int i = 0; i < sizeof(cmd_list)/sizeof(cmd_list[0]); i++){
-            if(!strcmp(cmd, cmd_list[i])) {
-                cmd_func_list[i]();
+        for(int i = 0; i < sizeof(commands)/sizeof(commands[0]); i++){
+            if(!strcmp(cmd, commands[i].name)) {
+                commands[i].fnptr();
                 break;
             }
         }
@@ -25,4 +31,8 @@ int main(void) {
 
 void help(void) {
     printf("Hi, This is where I will put the most usefull commands\n");
+}
+
+void hello(void) {
+    printf("Why hello to you too, such a curtious gesture!\n");
 }
