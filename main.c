@@ -68,24 +68,37 @@ void change_save_dir(void) {
     char path[200];
     char *home = getenv("HOME");
 
+    if(home == NULL) {
+        exit(2);
+    }
+
     //printf(home);
 
     snprintf(path, sizeof(path), "%s/.bookwork/.save_dir_file.txt", home);
 
     printf("%s\n", path);
 
-    FILE* file = fopen(path, "w");
+    FILE* file = fopen(path, "r");
 
     if(file ==NULL) {
         printf("Cannot access ~/.bookwork/.save_dir_file.txt");
+        exit(1);
     }
 
     fgets(buff, sizeof(buff), file);
+    fclose(file);
+
     printf("Please enter new save directory (current save directory is '%s' (press k to keep)): ", buff);
     scanf("%99s", buff);
 
     if(strcmp(buff, "k")) {
-        fprintf(file, "%s", buff);
+        FILE* file = fopen(path, "w");
+        if(file == NULL) {
+            exit(1);
+        } else {
+            fprintf(file, "%s", buff);
+            fclose(file);
+        }
     }
-    fclose(file);
+    
 }
