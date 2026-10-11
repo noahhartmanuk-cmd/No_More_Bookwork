@@ -33,23 +33,8 @@ int running = 1;
 char path_to_dir[100];
 
 struct letter_def {
-    char letter[1];
+    char letter;
     int number;
-};
-
-struct letter_def letters[] = {
-    {"a", 0},
-    {"b", 1},
-    {"c", 2},
-    {"d", 3},
-    {"e", 4},
-    {"f", 5},
-    {"g", 6},
-    {"h", 7},
-    {"i", 8},
-    {"j", 9},
-    {"k", 10},
-    {"l", 11}
 };
 
 int main(void) {
@@ -61,7 +46,7 @@ int main(void) {
     printf("Hey there, how y' doing, welcome to No_More_Bookwork, the only way to completely slow down bookwork checks in Sparx\n");
 
     while(running) {
-
+        found = 0;
         printf("Enter Cmd ('h' for help): ");
         scanf("%99s", cmd);
 
@@ -155,7 +140,9 @@ void start(void) {
     char path[100];
     char full_path[100];
     char file_name[100];
-    char work[20][10];
+    char work[10][20][200];
+    char bookwork_id[10];
+    char pos_content[200];
 
     printf("Please enter the name of the bookwork you want to edit('n' to create a new bookwork file): ");
     scanf("%99s", file_name);
@@ -175,6 +162,8 @@ void start(void) {
         if(file == NULL){
             exit(1);
         }
+
+        fwrite(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
 
         fclose(file);
 
@@ -196,5 +185,59 @@ void start(void) {
             exit(1);
         }
     }
-    
+    fread(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
+    printf("What bookwork would you like to start from? (in the form 1a): ");
+    scanf("%2s", bookwork_id);
+
+    int num_id;
+    char letter_id;
+
+
+    while(running) {
+        printf("Enter new value for %s"
+            "\n('e' to save previous entries and quit programe)"
+            "\n('c' to move onto next segment)"
+            "\n('?' to get the value at a certan bookwork id): ", bookwork_id);
+            
+            fgets(pos_content, sizeof(pos_content), stdin);
+
+        if(pos_content[0] == 'e') {
+
+            fwrite(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
+            fclose(file);
+            running = 0;
+
+        } else {
+
+            if(pos_content[0] == 'c') {
+                    
+                num_id += 1;
+                letter_id = 'a';
+
+            } else {
+                if(pos_content[0] == '?') {
+                    if(pos_content[2] == '\0') {
+                        printf("Enter the bookwork id: ");
+                        scanf("%2s", bookwork_id);
+                        printf("The value at %c%c is %s\n", bookwork_id[0], bookwork_id[1], work[(bookwork_id[0] - '0')][bookwork_id[1] - 'a']);
+                    } else {
+                        printf("The value at %s%s is %s\n", pos_content[1],pos_content[2], work[pos_content[1] - '0'][pos_content[2] - 'a']);
+                    }
+                } else {
+                    strcpy(work[num_id][letter_id], pos_content);
+                }
+            }
+        }
+        letter_id += 1;
+        if(letter_id - 'a' >= 20) {
+            letter_id = 'a';
+            num_id += 1;
+        }
+        if(num_id >= 10) {
+            fwrite(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
+            fclose(file);
+            break;
+        }
+
+    }
 }
