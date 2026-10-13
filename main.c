@@ -188,8 +188,7 @@ void start(void) {
     fread(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
     printf("What bookwork would you like to start from? (in the form 1a): ");
     scanf("%4s", bookwork_id);
-
-
+    
     while(running) {
         printf("Enter new value for %s"
             "\n('e' to save previous entries and quit programe)"

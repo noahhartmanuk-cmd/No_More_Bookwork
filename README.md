@@ -7,3 +7,5 @@ Also this is my first major C project so please don't judge to much :)
 Haven't built in non-unix support so won't work on windows
 
 This requires no dependancies so you just compile without linking
+
+Will need to set the save directory at /home/usrname/.bookwork/.save_dir_file.txt
