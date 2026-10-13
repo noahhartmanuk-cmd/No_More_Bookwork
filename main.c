@@ -141,7 +141,7 @@ void start(void) {
     char full_path[100];
     char file_name[100];
     char work[10][20][200];
-    char bookwork_id[10];
+    char bookwork_id[30];
     char pos_content[200];
 
     printf("Please enter the name of the bookwork you want to edit('n' to create a new bookwork file): ");
@@ -187,10 +187,7 @@ void start(void) {
     }
     fread(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
     printf("What bookwork would you like to start from? (in the form 1a): ");
-    scanf("%2s", bookwork_id);
-
-    int num_id;
-    char letter_id;
+    scanf("%4s", bookwork_id);
 
 
     while(running) {
@@ -211,8 +208,8 @@ void start(void) {
 
             if(pos_content[0] == 'c') {
                     
-                num_id += 1;
-                letter_id = 'a';
+                bookwork_id[0] += 1;
+                bookwork_id[1] = 'a';
 
             } else {
                 if(pos_content[0] == '?') {
@@ -221,19 +218,20 @@ void start(void) {
                         scanf("%2s", bookwork_id);
                         printf("The value at %c%c is %s\n", bookwork_id[0], bookwork_id[1], work[(bookwork_id[0] - '0')][bookwork_id[1] - 'a']);
                     } else {
-                        printf("The value at %s%s is %s\n", pos_content[1],pos_content[2], work[pos_content[1] - '0'][pos_content[2] - 'a']);
+                        printf("The value at %c%c is %s\n", pos_content[1],pos_content[2], work[pos_content[1] - '0'][pos_content[2] - 'a']);
                     }
+                    bookwork_id[1] -= 1;
                 } else {
-                    strcpy(work[num_id][letter_id], pos_content);
+                    strcpy(work[bookwork_id[0] - '0'][bookwork_id[1] - 'a'], pos_content);
                 }
             }
         }
-        letter_id += 1;
-        if(letter_id - 'a' >= 20) {
-            letter_id = 'a';
-            num_id += 1;
+        bookwork_id[1] += 1;
+        if(bookwork_id[1] - 'a' >= 20) {
+            bookwork_id[1] = 'a';
+            bookwork_id[0] += 1;
         }
-        if(num_id >= 10) {
+        if(bookwork_id[0] - '0' >= 10) {
             fwrite(work, sizeof(work[0]), sizeof(work)/sizeof(work[0]), file);
             fclose(file);
             break;
