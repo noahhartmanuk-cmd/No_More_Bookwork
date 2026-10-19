@@ -1,11 +1,9 @@
 Just A simple and lightweight TUI app for managing Sparx bookworks
 
-This was mostly a proof of concept and is very, very buggy and I have already spent longer than I intended to on this **very** useless project.
+This was mostly a proof of concept and is very, very buggy and I have already spent longer than I intended to on this **very** useless project. Also this is my first major C project so please don't judge to much :)
 
-Also this is my first major C project so please don't judge to much :)
+Haven't built in non-unix support so won't work on Windows
 
-Haven't built in non-unix support so won't work on windows
+This requires no dependencies so you just compile without linking (e.g. gcc main.c -o main when the source code is in the active directory, you can copy the whole directory with a git clone) 
 
-This requires no dependancies so you just compile without linking
-
-Will need to set the save directory at /home/usrname/.bookwork/.save_dir_file.txt
+Will need to set the save directory at /home/usrname/.bookwork/.save_dir_file.txt as the program will not assume the directory (for the program to work the file must contain one line in the form /path/to/dir/ without the use of ~/ or ./)
