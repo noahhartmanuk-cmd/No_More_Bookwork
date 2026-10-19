@@ -9,7 +9,7 @@ This requires no dependencies so you just compile without linking (e.g. gcc main
 Will need to set the save directory at /home/usrname/.bookwork/.save_dir_file.txt as the program will not assume the directory (for the program to work the file must contain one line in the form /path/to/dir/ without the use of ~/ or ./)
 
 #How to play
-* Compile from source or download from the [https://github.com/noahhartmanuk-cmd/No_More_Bookwork/releases] (Releases Page)
+* Compile from source or download from the [Releases Page](https://github.com/noahhartmanuk-cmd/No_More_Bookwork/releases)
 * Run the program with ./Main
 * Type h to show options
 * Enjoy!
